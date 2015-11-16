@@ -9,6 +9,28 @@ export default Ember.Component.extend({
     this.set('isEditing', false);
   },
 
+  title: Ember.computed('todo.title', function() {
+    return `${this.get('todo.title')} for ${this.get('owner')}`;
+  }),
+
+  isCompleted: Ember.computed('todo.isCompleted', function() {
+    return this.get('todo.isCompleted');
+  }),
+
+  comments: Ember.computed('todo.isCompleted', function() {
+    return `${this.get('todo.commentsCount')} comments`;
+  }),
+
+  owner: Ember.computed('todo.owner', function() {
+    return this.get('todo.owner');
+  }),
+
+  createdAt: Ember.computed('todo.createdAt', function() {
+    var date = new Date(parseInt(this.get('todo.createdAt')));
+
+    return date;
+  }),
+
   actions: {
     editTodo() {
       this.set('isEditing', true);
@@ -27,10 +49,16 @@ export default Ember.Component.extend({
 
     toggleCompleteTodo(todo) {
       todo.toggleProperty('isCompleted');
+<<<<<<< HEAD
       todo.save().then(function () {
         todo.get('ancestors').reload();
         todo.get('descendants').reload();
       });
     }
   }
+=======
+      todo.save();
+    },
+  },
+>>>>>>> list-breakpoint
 });
