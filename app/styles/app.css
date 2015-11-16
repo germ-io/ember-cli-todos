@@ -359,6 +359,7 @@ html .clear-completed:active {
 	border: 0;
 	cursor: pointer;
 	position: absolute;
+	font-size: 10px;
 	right: 0;
 	top: 0;
 	width: 60px;

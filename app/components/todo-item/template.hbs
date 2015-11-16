@@ -7,6 +7,10 @@
   <label {{action 'editTodo' on='doubleClick'}}>{{title}}</label>
   <div class="comments"><span>{{comments}}</span></div>
   <div class="date"><span>{{createdAt}}</span></div>
-  {{date-picker date=date valueFormat='YYYY-MM-DD' class='date-picker'}}
+  {{#if dateMode}}
+    {{date-picker date=date valueFormat='YYYY-MM-DD' class='date-picker'}}
+  {{else}}
+    <button {{action 'toggleDateMode'}} class="date-picker">Click to Date</button>
+  {{/if}}
   <button {{action 'removeTodo' todo}} class='destroy'></button>
 {{/if}}
