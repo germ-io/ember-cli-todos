@@ -1,10 +1,12 @@
 {{#if isEditing}}
-  {{edit-todo class='edit' value=todo.title
+  {{edit-todo class='edit' value=title
                            focus-out=(action 'save' todo)
                            insert-newline=(action 'save' todo)}}
 {{else}}
-  <input type='checkbox' checked={{todo.isCompleted}} class='toggle' onchange={{action 'toggleCompleteTodo' todo}}>
-  <label {{action 'editTodo' on='doubleClick'}}>{{todo.title}}</label>
-  {{!-- <div class="comments"><span>{{comments}} comments</span></div> --}}
+  <input type='checkbox' checked={{isCompleted}} class='toggle' onchange={{action 'toggleCompleteTodo' todo}}>
+  <label {{action 'editTodo' on='doubleClick'}}>{{title}}</label>
+  <div class="comments"><span>{{comments}}</span></div>
+  <div class="date"><span>{{createdAt}}</span></div>
+  {{date-picker date=date valueFormat='YYYY-MM-DD' class='date-picker'}}
 <button {{action 'removeTodo' todo}} class='destroy'></button>
 {{/if}}
