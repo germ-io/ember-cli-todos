@@ -26,7 +26,7 @@ export default Ember.Component.extend({
   }),
 
   createdAt: Ember.computed('todo.createdAt', function() {
-    var date = new Date(parseInt(this.get('todo.createdAt')));
+    var date = new Date(this.get('todo.createdAt'));
 
     return date;
   }),
@@ -49,16 +49,11 @@ export default Ember.Component.extend({
 
     toggleCompleteTodo(todo) {
       todo.toggleProperty('isCompleted');
-<<<<<<< HEAD
+
       todo.save().then(function () {
         todo.get('ancestors').reload();
         todo.get('descendants').reload();
       });
     }
   }
-=======
-      todo.save();
-    },
-  },
->>>>>>> list-breakpoint
 });
