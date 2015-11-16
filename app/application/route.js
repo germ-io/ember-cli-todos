@@ -10,7 +10,7 @@ export default Ember.Route.extend({
   model(params) {
     return this.store.findAll('todo').then((todos) => ({
       all: todos,
-      filter: params.state
+      filter: params.id
     }));
   }
 

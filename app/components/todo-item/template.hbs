@@ -5,5 +5,6 @@
 {{else}}
   <input type='checkbox' checked={{todo.isCompleted}} class='toggle' onchange={{action 'toggleCompleteTodo' todo}}>
   <label {{action 'editTodo' on='doubleClick'}}>{{todo.title}}</label>
-  <button {{action 'removeTodo' todo}} class='destroy'></button>
+  {{!-- <div class="comments"><span>{{comments}} comments</span></div> --}}
+<button {{action 'removeTodo' todo}} class='destroy'></button>
 {{/if}}
