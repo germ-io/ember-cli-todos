@@ -1,13 +1,12 @@
 <section class='todoapp'>
   <header id='header'>
-    <h1>todos</h1>
+    <h1>todos {{#link-to 'emptypage'}}Emptypage{{/link-to}}</h1>
     {{input type='text'
             class='new-todo'
             placeholder='What needs to be done?'
             value=newTitle
             enter='createTodo'}}
   </header>
-
   <section class='main'>
     {{todos-list todos=filtered class='todo-list'}}
 

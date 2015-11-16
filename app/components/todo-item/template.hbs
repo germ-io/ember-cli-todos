@@ -8,3 +8,8 @@
   {{!-- <div class="comments"><span>{{comments}} comments</span></div> --}}
 <button {{action 'removeTodo' todo}} class='destroy'></button>
 {{/if}}
+<ul>
+{{#each todo.children as |child|}}
+  {{todo-item todo=child}}
+{{/each}}
+</ul>

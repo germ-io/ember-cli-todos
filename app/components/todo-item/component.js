@@ -27,7 +27,10 @@ export default Ember.Component.extend({
 
     toggleCompleteTodo(todo) {
       todo.toggleProperty('isCompleted');
-      todo.save();
+      todo.save().then(function () {
+        todo.get('ancestors').reload();
+        todo.get('descendants').reload();
+      });
     }
   }
 });

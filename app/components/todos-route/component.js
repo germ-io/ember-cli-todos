@@ -10,17 +10,18 @@ const {
 export default Component.extend({
   store: service(),
 
-  filtered: computed('todos.@each.isCompleted', 'filter', function() {
+  filtered: computed('root.@each.isCompleted', 'filter', function() {
     switch(this.get('filter')) {
     case 'active':
       return this.get('active');
     case 'completed':
       return this.get('completed');
     default:
-      return this.get('todos');
+      return this.get('root');
     }
   }),
 
+  root: filterBy('todos', 'isRoot', true),
   completed: filterBy('todos', 'isCompleted', true),
   active: filterBy('todos', 'isCompleted', false),
   allAreDone: computed.empty('active'),
