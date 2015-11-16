@@ -7,6 +7,7 @@ export default Ember.Component.extend({
   init() {
     this._super(...arguments);
     this.set('isEditing', false);
+    this.set('dateMode', false);
   },
 
   title: Ember.computed('todo.title', function() {
@@ -49,11 +50,14 @@ export default Ember.Component.extend({
 
     toggleCompleteTodo(todo) {
       todo.toggleProperty('isCompleted');
-
       todo.save().then(function () {
         todo.get('ancestors').reload();
         todo.get('descendants').reload();
       });
-    }
+    },
+
+    toggleDateMode() {
+      this.set('dateMode', true);
+    },
   }
 });
