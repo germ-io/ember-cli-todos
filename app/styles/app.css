@@ -153,6 +153,16 @@ label[for='toggle-all'] {
 	font-size: 24px;
 	border-bottom: 1px solid #ededed;
   list-style: none;
+  box-shadow: 1px 1px 1px 1px #333;
+  border-radius: 4px;
+  margin: 5px;
+  border-left: 2px solid red;
+  z-index: 100;
+  -webkit-animation: fadein 2s; /* Safari, Chrome and Opera > 12.1 */
+        -moz-animation: fadein 2s; /* Firefox < 16 */
+         -ms-animation: fadein 2s; /* Internet Explorer */
+          -o-animation: fadein 2s; /* Opera < 12.1 */
+             animation: fadein 2s;
 }
 
 .todo-list li:last-child {
@@ -227,6 +237,7 @@ label[for='toggle-all'] {
 	color: #cc9a9a;
 	margin-bottom: 11px;
 	transition: color 0.2s ease-out;
+  box-shadow: 1px 1px 5px #ccc;
 }
 
 .todo-list li .destroy:hover {
@@ -418,4 +429,27 @@ html .clear-completed:active {
 	.filters {
 		bottom: 10px;
 	}
+}
+
+@keyframes fadein {
+    from { opacity: 0; }
+    to   { opacity: 1; }
+}
+
+/* Firefox < 16 */
+@-moz-keyframes fadein {
+    from { opacity: 0; }
+    to   { opacity: 1; }
+}
+
+/* Safari, Chrome and Opera > 12.1 */
+@-webkit-keyframes fadein {
+    from { opacity: 0; }
+    to   { opacity: 1; }
+}
+
+/* Internet Explorer */
+@-ms-keyframes fadein {
+    from { opacity: 0; }
+    to   { opacity: 1; }
 }

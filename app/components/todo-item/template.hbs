@@ -4,7 +4,8 @@
                            insert-newline=(action 'save' todo)}}
 {{else}}
   <input type='checkbox' checked={{isCompleted}} class='toggle' onchange={{action 'toggleCompleteTodo' todo}}>
-  <label {{action 'editTodo' on='doubleClick'}}>{{title}}</label>
+  <label {{action 'editTodo' on='doubleClick'}}>{{title}}</label>, <br />
+  <b>{{owner}}</b>
   <div class="comments"><span>{{comments}}</span></div>
   <div class="date"><span>{{createdAt}}</span></div>
   {{#if dateMode}}
@@ -14,8 +15,4 @@
   {{/if}}
   <button {{action 'removeTodo' todo}} class='destroy'></button>
 {{/if}}
-<ul>
-{{#each todo.children as |child|}}
-  {{todo-item todo=child}}
-{{/each}}
-</ul>
+

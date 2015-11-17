@@ -9,21 +9,35 @@ const {
 
 export default Component.extend({
   store: service(),
+  sortProperties: ['dueDate', 'germTitle'],
+  filterBy: ['subu', 'yuva'],
+  filterText: '',
 
-  filtered: computed('root.@each.isCompleted', 'filter', function() {
+  filteredResults: computed('filterBy.[]', 'filtered.[]', function (actionable, index, array) {
+    let self = this;
+    if (self.get('filterBy').length)  {
+      return this.get('filtered').filter(function (todo) {
+        return self.get('filterBy').contains(todo.get('owner'));
+      });
+    } else {
+      return this.get('filtered');
+    }
+  }),
+
+  filtered: computed('todos.@each.isCompleted', 'filter', function() {
     switch(this.get('filter')) {
     case 'active':
       return this.get('active');
     case 'completed':
       return this.get('completed');
     default:
-      return this.get('root');
+      return this.get('todos');
     }
   }),
 
-  root: filterBy('todos', 'isRoot', true),
   completed: filterBy('todos', 'isCompleted', true),
   active: filterBy('todos', 'isCompleted', false),
+
   allAreDone: computed.empty('active'),
 
   inflection: computed('active.length', function() {
@@ -66,6 +80,14 @@ export default Component.extend({
       completed
         .toArray() // clone the array, so it is not bound while we iterate over and delete.
         .invoke('destroyRecord');
+    },
+    filterByUser(){
+      let filterText = this.get('filterText');
+      if (!Ember.isBlank(filterText)) {
+        this.get('filterBy').clear();
+        let filterBy = filterText.split(",").map(f => f.trim())
+        this.get('filterBy').pushObjects(filterBy);
+      }
     }
   }
 });
