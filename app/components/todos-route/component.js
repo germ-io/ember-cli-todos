@@ -11,8 +11,8 @@ const {
 export default Component.extend({
   store: service(),
   sortProperties: ['dueDate', 'germTitle'],
-  filterBy: ['subu', 'yuva', 'riqwan', 'paddy', 'vikram', 'gautham'],
-  filterText: 'subu, yuva, riqwan, paddy, vikram, gautham',
+  filterBy: [],
+  filterText: '',
   sorts: ['sortedTodoByComments', 'sortedTodoByTime', 'sortedTodoByCommentsDesc', 'sortedTodoByTimeDesc'],
   currentSort: 'sortedTodoByComments',
   categoryGrouping: groupBy('filteredResults', 'category'),
