@@ -40,7 +40,7 @@
         {{todos-list todos=group.items class='todo-list' currentSort=currentSort}}
       {{/each}}
     {{else}}
-      {{todos-list todos=filteredResults class='todo-list' currentSort=currentSort}}
+      {{todos-list todos=filtered class='todo-list' currentSort=currentSort}}
     {{/if}}
     <input type='checkbox'
             class='toggle-all'

@@ -446,7 +446,9 @@ html .clear-completed:active {
 .ember-list-item-view {
   position: absolute;
 }
-
+.hide {
+  display: none;
+}
 @keyframes fadein {
     from { opacity: 0; }
     to   { opacity: 1; }
