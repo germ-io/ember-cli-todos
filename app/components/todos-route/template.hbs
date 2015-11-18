@@ -13,7 +13,7 @@
   </header>
   <section class='main'>
     <div class="row sort-grouping">
-      <div class="col-md-9">
+      <div class="col-md-6">
         <select onchange={{action "selectSort" value="target.value"}} class="form-control">
           {{#each sorts as |sort|}}
             <option value={{sort}}>{{sort}}</option>
@@ -23,12 +23,24 @@
 
       <div class="col-md-3">
         {{#if isGrouped}}
-          <button class="btn btn-primary form-control" {{action 'changeListType' on="click"}}>
-            Show All Lists
+          <button class="btn btn-success form-control" {{action 'changeListType' on="click"}}>
+            Remove Color Grouping
           </button>
         {{else}}
-          <button class="btn btn-primary form-control" {{action 'changeListType' on="click"}}>
+          <button class="btn btn-success form-control" {{action 'changeListType' on="click"}}>
             Group by Color
+          </button>
+        {{/if}}
+      </div>
+
+      <div class="col-md-3">
+        {{#if userGrouped}}
+          <button class="btn btn-success form-control" {{action 'changeUserGrouping' on="click"}}>
+            Remove User Grouping
+          </button>
+        {{else}}
+          <button class="btn btn-success form-control" {{action 'changeUserGrouping' on="click"}}>
+            Group by Users
           </button>
         {{/if}}
       </div>
@@ -36,11 +48,11 @@
 
     {{#if isGrouped}}
       {{#each categoryGrouping as |group|}}
-        <b>{{group.value}} ({{group.items.length}})</b>
-        {{todos-list todos=group.items class='todo-list' currentSort=currentSort}}
+        <div class="group {{group.value}}">{{group.value}} ({{group.items.length}})</div>
+        {{todos-list todos=group.items class='todo-list' currentSort=currentSort userGrouped=userGrouped}}
       {{/each}}
     {{else}}
-      {{todos-list todos=filteredResults class='todo-list' currentSort=currentSort}}
+      {{todos-list todos=filteredResults class='todo-list' currentSort=currentSort userGrouped=userGrouped}}
     {{/if}}
     <input type='checkbox'
             class='toggle-all'

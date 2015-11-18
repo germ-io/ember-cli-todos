@@ -11,6 +11,7 @@ const {
 export default Component.extend({
   store: service(),
   isGrouped: false,
+  userGrouped: false,
   filterBy: [],
   filterText: '',
   sorts: ['sortedTodoByComments', 'sortedTodoByTime', 'sortedTodoByCommentsDesc', 'sortedTodoByTimeDesc', 'sortedTodoByOwner'],
@@ -56,6 +57,10 @@ export default Component.extend({
   actions: {
     changeListType() {
       this.toggleProperty('isGrouped');
+    },
+
+    changeUserGrouping() {
+      this.toggleProperty('userGrouped');
     },
 
     createTodo(title) {

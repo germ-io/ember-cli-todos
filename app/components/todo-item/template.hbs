@@ -1,8 +1,13 @@
 {{#if isEditing}}
   {{edit-todo class='edit' value=title insert-newline=(action 'save' todo)}}
-  <select onchange={{action "saveCategory" value='target.value'}}>
+  <select onchange={{action "saveCategory" value='target.value'}} class="form-control edit-select">
     {{#each categories as |category|}}
       <option value={{category}} selected={{eq todo.category category}}>{{category}}</option>
+    {{/each}}
+  </select>
+  <select onchange={{action "saveOwner" value='target.value'}} class="form-control edit-select">
+    {{#each owners as |owner|}}
+      <option value={{owner}} selected={{eq todo.owner owner}}>{{owner}}</option>
     {{/each}}
   </select>
 {{else}}

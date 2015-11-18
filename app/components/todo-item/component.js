@@ -4,6 +4,7 @@ export default Ember.Component.extend({
   tagName: 'li',
   classNameBindings: ['todo.isCompleted:completed', 'isEditing:editing'],
   categories: ['red', 'blue', 'green', 'yellow'],
+  owners: ['Riqwan Thamir', 'Subu', 'Yuvaraja', 'Vikram Bhaskaran', 'Gautham Shankar', 'Paddy Lingesh'],
 
   init() {
     this._super(...arguments);
@@ -12,7 +13,7 @@ export default Ember.Component.extend({
   },
 
   title: Ember.computed('todo.title', function() {
-    return this.get('todo.title');
+    return this.get('todo.title').trim();
   }),
 
   isCompleted: Ember.computed('todo.isCompleted', function() {
@@ -56,6 +57,14 @@ export default Ember.Component.extend({
       let todo = this.get('todo');
 
       todo.set('category', category);
+      todo.save();
+    },
+
+    saveOwner(owner) {
+      this.set('isEditing', false);
+      let todo = this.get('todo');
+      debugger
+      todo.set('owner', owner);
       todo.save();
     },
 

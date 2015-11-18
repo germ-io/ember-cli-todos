@@ -169,14 +169,11 @@ label[for='toggle-all'] {
 
 .todo-list li.editing {
 	border-bottom: none;
-	padding: 0;
+	padding: 10px;
 }
 
 .todo-list li.editing .edit {
 	display: block;
-	width: 506px;
-	padding: 13px 17px 12px 17px;
-	margin: 0 0 0 43px;
 }
 
 .todo-list li.editing .view {
@@ -197,6 +194,44 @@ label[for='toggle-all'] {
 	appearance: none;
 }
 
+.edit-select {
+	margin-top: 10px;
+}
+
+.stats {
+	margin-left: 50px;
+}
+
+.stats .owner {
+  padding: 15px;
+  font-weight: 500;
+  font-size: 20px;
+}
+
+.group {
+  color: #fff;
+  font-size: 20px;
+  font-weight: 500;
+  padding: 10px;
+  text-align: center;
+}
+
+.green {
+  background: #5cb85c;
+}
+
+.yellow {
+	background: #ead00e;
+}
+
+.blue {
+	background: #59A9FF;
+}
+
+.red {
+	background: #f74b3b;
+}
+
 .todo-list li .toggle:before {
   content: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" width="40" height="40" viewBox="-10 -18 100 135"><circle cx="50" cy="50" r="50" fill="none" stroke="#ededed" stroke-width="3"/></svg>');
 }
@@ -213,13 +248,14 @@ label[for='toggle-all'] {
 .todo-list li label {
   white-space: pre;
   word-break: break-word;
-  padding: 15px 60px 15px 15px;
+  padding: 15px 60px 10px 15px;
   margin-left: 45px;
   display: block;
   line-height: 1.2;
   transition: color 0.4s;
   font-size: 20px;
   font-weight: 300;
+  margin-bottom: 0;
 }
 
 .todo-list li.completed label {
