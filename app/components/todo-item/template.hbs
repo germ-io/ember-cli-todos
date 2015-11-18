@@ -6,10 +6,10 @@
   <input type='checkbox' checked={{isCompleted}} class='toggle' onchange={{action 'toggleCompleteTodo' todo}}>
   <label {{action 'editTodo' on='doubleClick'}}>{{title}}</label>, <br />
   <b>{{owner}}</b>
-  <div class="comments"><span>{{comments}}</span></div>
+  <input type='text' value={{todo.category}} class='toggle' onchange={{action 'toggleCompleteTodo' todo}}>
   <div class="date"><span>{{createdAt}}</span></div>
   {{#if dateMode}}
-    {{date-picker date=date valueFormat='YYYY-MM-DD' class='date-picker'}}
+    {{date-picker date=date valueFormat='YYYY-MM-DD' class='date-picker' }}
   {{else}}
     <button {{action 'toggleDateMode'}} class="date-picker">Click to Date</button>
   {{/if}}

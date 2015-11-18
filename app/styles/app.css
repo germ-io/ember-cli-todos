@@ -158,11 +158,12 @@ label[for='toggle-all'] {
   margin: 5px;
   border-left: 2px solid red;
   z-index: 100;
-  -webkit-animation: fadein 2s; /* Safari, Chrome and Opera > 12.1 */
-        -moz-animation: fadein 2s; /* Firefox < 16 */
-         -ms-animation: fadein 2s; /* Internet Explorer */
-          -o-animation: fadein 2s; /* Opera < 12.1 */
-             animation: fadein 2s;
+
+  /* -webkit-animation: fadein 2s; /* Safari, Chrome and Opera > 12.1 */
+  /*      -moz-animation: fadein 2s; /* Firefox < 16 */
+  /*       -ms-animation: fadein 2s; /* Internet Explorer */
+  /*        -o-animation: fadein 2s; /* Opera < 12.1 */
+  /*           animation: fadein 2s; */
 }
 
 .todo-list li:last-child {
@@ -429,6 +430,14 @@ html .clear-completed:active {
 	.filters {
 		bottom: 10px;
 	}
+}
+
+.ember-list-view {
+  overflow: auto;
+  position: relative;
+}
+.ember-list-item-view {
+  position: absolute;
 }
 
 @keyframes fadein {

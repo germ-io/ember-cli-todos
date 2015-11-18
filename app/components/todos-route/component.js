@@ -1,4 +1,5 @@
 import Ember from 'ember';
+import groupBy from 'ember-group-by';
 
 const {
   Component,
@@ -10,8 +11,11 @@ const {
 export default Component.extend({
   store: service(),
   sortProperties: ['dueDate', 'germTitle'],
-  filterBy: ['subu', 'yuva'],
-  filterText: '',
+  filterBy: ['subu', 'yuva', 'riqwan', 'paddy', 'vikram', 'gautham'],
+  filterText: 'subu, yuva, riqwan, paddy, vikram, gautham',
+  sorts: ['sortedTodoByComments', 'sortedTodoByTime', 'sortedTodoByCommentsDesc', 'sortedTodoByTimeDesc'],
+  currentSort: 'sortedTodoByComments',
+  categoryGrouping: groupBy('filteredResults', 'category'),
 
   filteredResults: computed('filterBy.[]', 'filtered.[]', function (actionable, index, array) {
     let self = this;
@@ -23,7 +27,8 @@ export default Component.extend({
       return this.get('filtered');
     }
   }),
-
+  // currentSort: ['commentsCount:asc'],
+  // filteredResults: computed.sort('justFilteredResults', 'currentSort'),
   filtered: computed('todos.@each.isCompleted', 'filter', function() {
     switch(this.get('filter')) {
     case 'active':
@@ -85,9 +90,12 @@ export default Component.extend({
       let filterText = this.get('filterText');
       if (!Ember.isBlank(filterText)) {
         this.get('filterBy').clear();
-        let filterBy = filterText.split(",").map(f => f.trim())
+        let filterBy = filterText.split(",").map(f => f.trim());
         this.get('filterBy').pushObjects(filterBy);
       }
-    }
+    },
+    selectSort(selection) {
+      this.set('currentSort', selection);
+    },
   }
 });

@@ -5,6 +5,7 @@ var Todo = DS.Model.extend({
   owner: DS.attr('string', { defaultValue: 'Anonymous' }),
   isCompleted: DS.attr('boolean', { defaultValue: false }),
   isRoot: DS.attr('boolean', { defaultValue: false }),
+  category: DS.attr('string', { defaultValue: 'red' }),
   commentsCount: DS.attr('number', { defaultValue: 0}),
   children: DS.hasMany('todo', {inverse: null, async: false}),
   ancestors: DS.hasMany('todo', {inverse: 'descendants', async: false}),

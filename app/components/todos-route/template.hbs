@@ -13,8 +13,16 @@
             enter='createTodo'}}
   </header>
   <section class='main'>
-    {{todos-list todos=filteredResults class='todo-list'}}
+    <select onchange={{action "selectSort" value="target.value"}}>
+      {{#each sorts as |sort|}}
+        <option value={{sort}}>{{sort}}</option>
+      {{/each}}
+    </select>
 
+      {{#each categoryGrouping as |group|}}
+        <b>{{group.value}} ({{group.items.length}})</b>
+        {{todos-list todos=group.items class='todo-list' currentSort=currentSort}}
+      {{/each}}
     <input type='checkbox'
             class='toggle-all'
             checked={{allAreDone}}
