@@ -15,7 +15,9 @@ export default Component.extend({
   filterText: '',
   sorts: ['sortedTodoByComments', 'sortedTodoByTime', 'sortedTodoByCommentsDesc', 'sortedTodoByTimeDesc', 'sortedTodoByOwner'],
   currentSort: 'sortedTodoByComments',
-  categoryGrouping: groupBy('filteredResults', 'category'),
+  categoryGrouping: function () {
+    return groupBy(this, 'filteredResults', 'category');
+  }.property(),
 
   filteredResults: computed('filterBy.[]', 'filtered.[]', function(actionable, index, array) {
     let _this = this;

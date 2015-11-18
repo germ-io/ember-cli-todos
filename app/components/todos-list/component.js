@@ -3,5 +3,7 @@ import groupBy from 'ember-group-by';
 
 export default Ember.Component.extend({
   tagName: 'ul',
-  categoryGrouping: groupBy('todos', 'owner')
+  categoryGrouping: function () {
+    return groupBy(this, 'todos', 'owner');
+  }.property(),
 });

@@ -46,7 +46,7 @@
     "ember-data-fixture-adapter": "1.13.0",
     "ember-disable-proxy-controllers": "^1.0.0",
     "ember-export-application-global": "^1.0.4",
-    "ember-group-by": "0.0.2",
+    "ember-group-by": "git@github.com:bsubramaniam/ember-group-by.git#feature/speeding-up-for-huge-list-of-ed-models",
     "ember-truth-helpers": "1.2.0"
   }
 }
