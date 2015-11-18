@@ -10,18 +10,19 @@ const {
 
 export default Component.extend({
   store: service(),
-  sortProperties: ['dueDate', 'germTitle'],
+  isGrouped: false,
   filterBy: [],
   filterText: '',
-  sorts: ['sortedTodoByComments', 'sortedTodoByTime', 'sortedTodoByCommentsDesc', 'sortedTodoByTimeDesc'],
+  sorts: ['sortedTodoByComments', 'sortedTodoByTime', 'sortedTodoByCommentsDesc', 'sortedTodoByTimeDesc', 'sortedTodoByOwner'],
   currentSort: 'sortedTodoByComments',
   categoryGrouping: groupBy('filteredResults', 'category'),
 
-  filteredResults: computed('filterBy.[]', 'filtered.[]', function (actionable, index, array) {
-    let self = this;
-    if (self.get('filterBy').length)  {
-      return this.get('filtered').filter(function (todo) {
-        return self.get('filterBy').contains(todo.get('owner'));
+  filteredResults: computed('filterBy.[]', 'filtered.[]', function(actionable, index, array) {
+    let _this = this;
+
+    if (_this.get('filterBy').length)  {
+      return this.get('filtered').filter(function(todo) {
+        return _this.get('filterBy').contains(todo.get('owner'));
       });
     } else {
       return this.get('filtered');
@@ -30,7 +31,7 @@ export default Component.extend({
   // currentSort: ['commentsCount:asc'],
   // filteredResults: computed.sort('justFilteredResults', 'currentSort'),
   filtered: computed('todos.@each.isCompleted', 'filter', function() {
-    switch(this.get('filter')) {
+    switch (this.get('filter')) {
     case 'active':
       return this.get('active');
     case 'completed':
@@ -51,6 +52,10 @@ export default Component.extend({
   }).readOnly(),
 
   actions: {
+    changeListType() {
+      this.toggleProperty('isGrouped');
+    },
+
     createTodo(title) {
       let store = this.get('store');
 
@@ -61,7 +66,7 @@ export default Component.extend({
 
       // Create the new Todo model
       let todo = store.createRecord('todo', {
-        title: title
+        title: title,
       });
 
       // Clear the "New Todo" text field
@@ -92,6 +97,8 @@ export default Component.extend({
         this.get('filterBy').clear();
         let filterBy = filterText.split(",").map(f => f.trim());
         this.get('filterBy').pushObjects(filterBy);
+      } else {
+        this.set('filterBy', []);
       }
     },
     selectSort(selection) {

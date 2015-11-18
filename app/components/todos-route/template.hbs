@@ -12,16 +12,36 @@
             enter='createTodo'}}
   </header>
   <section class='main'>
-    <select onchange={{action "selectSort" value="target.value"}}>
-      {{#each sorts as |sort|}}
-        <option value={{sort}}>{{sort}}</option>
-      {{/each}}
-    </select>
+    <div class="row sort-grouping">
+      <div class="col-md-9">
+        <select onchange={{action "selectSort" value="target.value"}} class="form-control">
+          {{#each sorts as |sort|}}
+            <option value={{sort}}>{{sort}}</option>
+          {{/each}}
+        </select>
+      </div>
 
+      <div class="col-md-3">
+        {{#if isGrouped}}
+          <button class="btn btn-primary form-control" {{action 'changeListType' on="click"}}>
+            Show All Lists
+          </button>
+        {{else}}
+          <button class="btn btn-primary form-control" {{action 'changeListType' on="click"}}>
+            Group by Color
+          </button>
+        {{/if}}
+      </div>
+    </div>
+
+    {{#if isGrouped}}
       {{#each categoryGrouping as |group|}}
         <b>{{group.value}} ({{group.items.length}})</b>
         {{todos-list todos=group.items class='todo-list' currentSort=currentSort}}
       {{/each}}
+    {{else}}
+      {{todos-list todos=filteredResults class='todo-list' currentSort=currentSort}}
+    {{/if}}
     <input type='checkbox'
             class='toggle-all'
             checked={{allAreDone}}
@@ -35,8 +55,8 @@
 
     <ul class='filters'>
       <li> {{link-to 'All' 'todo'       (query-params state='all')       activeClass='selected'}} </li>
-      <li> {{link-to 'Active' 'todo'    (query-params state='active')    activeClass='selected'}} </li>
-      <li> {{link-to 'Completed' 'todo' (query-params state='completed') activeClass='selected'}} </li>
+      {{!-- <li> {{link-to 'Active' 'todo'    (query-params state='active')    activeClass='selected'}} </li>
+      <li> {{link-to 'Completed' 'todo' (query-params state='completed') activeClass='selected'}} </li> --}}
     </ul>
 
     {{#if completed}}

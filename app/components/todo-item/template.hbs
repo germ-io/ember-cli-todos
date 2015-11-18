@@ -1,11 +1,17 @@
 {{#if isEditing}}
-  {{edit-todo class='edit' value=title
-                           focus-out=(action 'save' todo)
-                           insert-newline=(action 'save' todo)}}
+  {{edit-todo class='edit' value=title insert-newline=(action 'save' todo)}}
+  <select onchange={{action "saveCategory" value='target.value'}}>
+    {{#each categories as |category|}}
+      <option value={{category}} selected={{eq todo.category category}}>{{category}}</option>
+    {{/each}}
+  </select>
 {{else}}
   <input type='checkbox' checked={{isCompleted}} class='toggle' onchange={{action 'toggleCompleteTodo' todo}}>
   <label {{action 'editTodo' on='doubleClick'}}>{{title}}</label>
-  <div class="date text-right"><span><b>{{owner}} -</b> {{createdAt}}</span></div>
+  <div class="meta-container date clearfix">
+    <span class="pull-left">{{comments}}</span>
+    <span class="pull-right">Category: {{todo.category}} | <b>{{owner}} -</b> {{createdAt}}</span>
+  </div>
   <button {{action 'removeTodo' todo}} class='destroy'></button>
 {{/if}}
 

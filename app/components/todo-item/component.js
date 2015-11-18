@@ -3,6 +3,7 @@ import Ember from 'ember';
 export default Ember.Component.extend({
   tagName: 'li',
   classNameBindings: ['todo.isCompleted:completed', 'isEditing:editing'],
+  categories: ['red', 'blue', 'green', 'yellow'],
 
   init() {
     this._super(...arguments);
@@ -11,7 +12,7 @@ export default Ember.Component.extend({
   },
 
   title: Ember.computed('todo.title', function() {
-    return `${this.get('todo.title')} for ${this.get('owner')}`;
+    return this.get('todo.title');
   }),
 
   isCompleted: Ember.computed('todo.isCompleted', function() {
@@ -31,7 +32,8 @@ export default Ember.Component.extend({
 
     return date;
   }),
-  saveTodo: Ember.observer('date', function () {
+
+  saveTodo: Ember.observer('date', function() {
     let todo = this.get('todo');
     todo.set('createdAt', new Date(this.get('date')));
     todo.save();
@@ -46,6 +48,14 @@ export default Ember.Component.extend({
       this.set('isEditing', false);
 
       todo.set('title', title);
+      todo.save();
+    },
+
+    saveCategory(category) {
+      this.set('isEditing', false);
+      let todo = this.get('todo');
+
+      todo.set('category', category);
       todo.save();
     },
 
@@ -64,5 +74,5 @@ export default Ember.Component.extend({
     toggleDateMode() {
       this.set('dateMode', true);
     },
-  }
+  },
 });

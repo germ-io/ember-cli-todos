@@ -10,7 +10,7 @@ var Todo = DS.Model.extend({
   children: DS.hasMany('todo', {inverse: null, async: false}),
   ancestors: DS.hasMany('todo', {inverse: 'descendants', async: false}),
   descendants: DS.hasMany('todo', {inverse: 'ancestors', async: false}),
-  createdAt: DS.attr('date')
+  createdAt: DS.attr('date'),
 });
 
 export default Todo;
