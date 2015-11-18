@@ -17,22 +17,23 @@ export default Component.extend({
   sorts: ['sortedTodoByComments', 'sortedTodoByTime', 'sortedTodoByCommentsDesc', 'sortedTodoByTimeDesc', 'sortedTodoByOwner'],
   currentSort: 'sortedTodoByComments',
   categoryGrouping: function () {
-    return groupBy(this, 'filteredResults', 'category');
+    return groupBy(this, 'filtered', 'category');
   }.property(),
 
-  filteredResults: computed('filterBy.[]', 'filtered.[]', function(actionable, index, array) {
+  filteredResults: Ember.observer('filterBy.[]', 'filtered.[]', function(actionable, index, array) {
     let _this = this;
 
     if (_this.get('filterBy').length)  {
-      return this.get('filtered').filter(function(todo) {
-        return _this.get('filterBy').contains(todo.get('owner'));
+      return this.get('filtered').forEach(function(todo) {
+        todo.set('hidden', !_this.get('filterBy').contains(todo.get('owner')))
       });
     } else {
-      return this.get('filtered');
+      return this.get('filtered').forEach(function(todo) {
+        todo.set('hidden', false);
+      });
     }
   }),
-  // currentSort: ['commentsCount:asc'],
-  // filteredResults: computed.sort('justFilteredResults', 'currentSort'),
+
   filtered: computed('todos.@each.isCompleted', 'filter', function() {
     switch (this.get('filter')) {
     case 'active':
@@ -100,7 +101,7 @@ export default Component.extend({
     },
     filterByUser(){
       let filterText = this.get('filterText');
-      if (!Ember.isBlank(filterText)) {
+      if (!Ember.isEmpty(filterText)) {
         this.get('filterBy').clear();
         let filterBy = filterText.split(",").map(f => f.trim());
         this.get('filterBy').pushObjects(filterBy);
