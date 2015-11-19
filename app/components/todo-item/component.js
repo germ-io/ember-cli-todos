@@ -34,12 +34,6 @@ export default Ember.Component.extend({
     return date;
   }),
 
-  saveTodo: Ember.observer('date', function() {
-    let todo = this.get('todo');
-    todo.set('createdAt', new Date(this.get('date')));
-    todo.save();
-  }),
-
   actions: {
     editTodo() {
       this.set('isEditing', true);
@@ -63,7 +57,6 @@ export default Ember.Component.extend({
     saveOwner(owner) {
       this.set('isEditing', false);
       let todo = this.get('todo');
-      debugger
       todo.set('owner', owner);
       todo.save();
     },
