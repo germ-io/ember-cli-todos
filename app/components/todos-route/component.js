@@ -65,6 +65,7 @@ export default Component.extend({
     },
 
     createTodo(title) {
+      let todos = this.get('todos');
       let store = this.get('store');
 
       if (title && !title.trim()) {
@@ -82,6 +83,7 @@ export default Component.extend({
 
       // Save the new model
       todo.save();
+      todos.loadRecords(store.peekAll('todo'));
     },
 
     completeAll() {
