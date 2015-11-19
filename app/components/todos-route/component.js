@@ -1,5 +1,5 @@
 import Ember from 'ember';
-import groupBy from 'ember-group-by';
+import { groupBy } from 'ember-group-by';
 
 const {
   Component,
@@ -24,9 +24,10 @@ export default Component.extend({
     let _this = this;
 
     if (_this.get('filterBy').length)  {
-      return this.get('filtered').forEach(function(todo) {
+      let filtered = this.get('filtered').forEach(function(todo) {
         todo.set('hidden', !_this.get('filterBy').contains(todo.get('owner')))
       });
+      return filtered;
     } else {
       return this.get('filtered').forEach(function(todo) {
         todo.set('hidden', false);
@@ -75,6 +76,7 @@ export default Component.extend({
       // Create the new Todo model
       let todo = store.createRecord('todo', {
         title: title,
+        owner: ['Riqwan Thamir', 'Subu', 'Yuvaraja', 'Vikram Bhaskaran', 'Gautham Shankar', 'Paddy Lingesh'][Math.floor(Math.random() * 6)]
       });
 
       // Clear the "New Todo" text field
