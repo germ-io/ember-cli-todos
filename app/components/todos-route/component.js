@@ -65,24 +65,24 @@ export default Component.extend({
       this.toggleProperty('userGrouped');
     },
 
-    createTodo(title) {
+    createTodo(ev) {
       let todos = this.get('todos');
       let store = this.get('store');
-
-      if (title && !title.trim()) {
-        this.set('newTitle', '');
+      if (ev.keyCode != 13) {
         return;
       }
 
+      var title = ev.target.value;
+
+      if (title && !title.trim()) {
+        return;
+      }
       // Create the new Todo model
-      let todo = store.createRecord('todo', {
+      var todo = store.createRecord('todo', {
         title: title,
         owner: ['Riqwan Thamir', 'Subu', 'Yuvaraja', 'Vikram Bhaskaran', 'Gautham Shankar', 'Paddy Lingesh'][Math.floor(Math.random() * 6)]
       });
-
-      // Clear the "New Todo" text field
-      this.set('newTitle', '');
-
+      ev.target.value = "";
       // Save the new model
       todo.save();
       todos.loadRecords(store.peekAll('todo'));
@@ -103,8 +103,11 @@ export default Component.extend({
         .toArray() // clone the array, so it is not bound while we iterate over and delete.
         .invoke('destroyRecord');
     },
-    filterByUser(){
-      let filterText = this.get('filterText');
+    filterByUser(ev){
+      if (ev.keyCode != 13) {
+        return;
+      }
+      let filterText = ev.target.value;
       if (!Ember.isEmpty(filterText)) {
         this.get('filterBy').clear();
         let filterBy = filterText.split(",").map(f => f.trim());

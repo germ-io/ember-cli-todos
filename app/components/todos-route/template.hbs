@@ -1,15 +1,7 @@
 <section class='todoapp'>
   <header id='header'>
-    {{input type='text'
-            class='new-todo'
-            placeholder='Filter by'
-            value=filterText
-            enter='filterByUser'}}
-    {{input type='text'
-            class='new-todo'
-            placeholder='What needs to be done?'
-            value=newTitle
-            enter='createTodo'}}
+    <input type='text' class="new-todo" placeholder='Filter By' onKeyDown={{action 'filterByUser'}}>
+    <input type='text' class="new-todo" placeholder='What needs to be done?' onKeyDown={{action 'createTodo'}}>
   </header>
   <section class='main'>
     <div class="row sort-grouping">
