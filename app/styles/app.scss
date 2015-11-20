@@ -485,6 +485,106 @@ html .clear-completed:active {
 .hide {
   display: none;
 }
+
+body{
+  background: #f9f9fa;
+}
+
+.section-title{
+  padding-left: 15px;
+}
+
+.flow-details{
+  padding: 20px;
+  margin: 20px 0;
+  border: 1px solid #eee;
+  border-radius: 3px;
+  background: #FFFFFF;
+}
+
+.flow-container {
+  margin: 20px 0px;
+  border: 1px solid #d6d6d6;
+  padding: 20px 60px;
+  background: #FFFFFF;
+
+  .item-title {
+    margin-left: -50px;
+    padding: 0 0 0 75px;
+
+    .expand-button, .collapse-button {
+      display: inline;
+      vertical-align: text-bottom;
+    }
+
+    .bullet{
+      position: absolute;
+      left: 22px;
+      z-index: 6;
+      margin-left: 1px;
+      margin-top: 10px;
+      height: 7px;
+      width: 7px;
+      background-color: #666666;
+      -moz-border-radius: 12px;
+      -webkit-border-radius: 12px;
+      border-radius: 12px;
+    }
+
+    .content {
+      display: inline-block;
+      padding-top: 3px;
+      font-size: 16px;
+      &:focus {
+        outline: 0;
+      }
+    }
+  }
+
+  .root.project>.children {
+    border-left: none;
+    margin-left: 0;
+  }
+
+  .children {
+    overflow-y: hidden;
+    position: relative;
+    margin-left: 10px;
+    padding-left: 15px;
+    border-left: 1px solid #eee;
+
+  }
+  .mjs-nestedSortable-collapsed {
+    ol {
+      max-height: 0px;
+      overflow: hidden;
+    }
+  }
+  li {
+    display: block;
+    margin: 5px;
+    padding: 5px;
+    border: 1px solid #cccccc;
+    color: #0088cc;
+    background: #eeeeee;
+  }
+}
+
+.dragged {
+  position: absolute;
+  opacity: 0.5;
+  z-index: 2000;
+}
+
+ol.example li.placeholder {
+  position: relative;
+  /** More li styles **/
+}
+ol.example li.placeholder:before {
+  position: absolute;
+  /** Define arrowhead **/
+}
+
 @keyframes fadein {
     from { opacity: 0; }
     to   { opacity: 1; }

@@ -1,22 +1,17 @@
-{{#if isEditing}}
-  {{edit-todo class='edit' value=title insert-newline=(action 'save' todo)}}
-  <select onchange={{action "saveCategory" value='target.value'}} class="form-control edit-select">
-    {{#each categories as |category|}}
-      <option value={{category}} selected={{eq todo.category category}}>{{category}}</option>
+<div class="item-title">
+  {{#if isCollapsed}}
+    <a class="expand-button" {{action 'expand'}}>+</a>
+  {{else}}
+    <a class="collapse-button" {{action 'collapse'}}>-</a>
+  {{/if}}
+  <div class="content" contenteditable>{{todo.title}} ({{todo.position}})</div>
+</div>
+
+{{#if todo.children.length}}
+  <ol>
+    {{#each sortedChildren as |child|}}
+      {{todo-item todo=child}}
     {{/each}}
-  </select>
-  <select onchange={{action "saveOwner" value='target.value'}} class="form-control edit-select">
-    {{#each owners as |owner|}}
-      <option value={{owner}} selected={{eq todo.owner owner}}>{{owner}}</option>
-    {{/each}}
-  </select>
-{{else}}
-  <input type='checkbox' checked={{isCompleted}} class='toggle' onchange={{action 'toggleCompleteTodo' todo}}>
-  <label {{action 'editTodo' on='doubleClick'}}>{{title}}</label>
-  <div class="meta-container date clearfix">
-    <span class="pull-left">{{comments}}</span>
-    <span class="pull-right">Category: {{todo.category}} | <b>{{owner}} -</b> {{createdAt}}</span>
-  </div>
-  <button {{action 'removeTodo' todo}} class='destroy'></button>
+  </ol>
 {{/if}}
 

@@ -7,9 +7,9 @@ var Todo = DS.Model.extend({
   isRoot: DS.attr('boolean', { defaultValue: false }),
   category: DS.attr('string', { defaultValue: 'red' }),
   commentsCount: DS.attr('number', { defaultValue: 0}),
-  children: DS.hasMany('todo', {inverse: null, async: false}),
-  ancestors: DS.hasMany('todo', {inverse: 'descendants', async: false}),
-  descendants: DS.hasMany('todo', {inverse: 'ancestors', async: false}),
+  position: DS.attr('number'),
+  parent: DS.belongsTo('todo', {inverse: 'children', async: false}),
+  children: DS.hasMany('todo', {inverse: 'parent', async: false}),
   createdAt: DS.attr('date'),
 });
 

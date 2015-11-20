@@ -6,6 +6,8 @@ export default Ember.Component.extend({
   categories: ['red', 'blue', 'green', 'yellow'],
   owners: ['Riqwan Thamir', 'Subu', 'Yuvaraja', 'Vikram Bhaskaran', 'Gautham Shankar', 'Paddy Lingesh'],
 
+  sortChildrenBy: ['position'],
+  sortedChildren: Ember.computed.sort('todo.children', 'sortChildrenBy'),
   init() {
     this._super(...arguments);
     this.set('isEditing', false);
@@ -33,6 +35,17 @@ export default Ember.Component.extend({
 
     return date;
   }),
+
+  setId: function () {
+    this.$().data('id', this.get('todo.id'));
+  }.on('didInsertElement'),
+
+
+  expanded: function () {
+    this.$('ol').removeClass('closed');
+    this.$().removeClass('mjs-nestedSortable-collapsed').addClass('mjs-nestedSortable-expanded');
+    this.set('isCollapsed', false);
+  },
 
   actions: {
     editTodo() {
@@ -76,5 +89,15 @@ export default Ember.Component.extend({
     toggleDateMode() {
       this.set('dateMode', true);
     },
+    expand() {
+      this.$('ol').removeClass('closed');
+      this.$().removeClass('mjs-nestedSortable-collapsed').addClass('mjs-nestedSortable-expanded');
+      this.set('isCollapsed', false);
+    },
+    collapse() {
+      this.$('ol').addClass('closed');
+      this.$().removeClass('mjs-nestedSortable-expanded').addClass('mjs-nestedSortable-collapsed');
+      this.set('isCollapsed', true);
+    }
   },
 });

@@ -12,6 +12,7 @@ export default Component.extend({
   store: service(),
   isGrouped: false,
   userGrouped: false,
+  isCollapsed: false,
   filterBy: [],
   filterText: '',
   sorts: ['sortedTodoByComments', 'sortedTodoByTime', 'sortedTodoByCommentsDesc', 'sortedTodoByTimeDesc', 'sortedTodoByOwner'],
@@ -19,6 +20,8 @@ export default Component.extend({
   categoryGrouping: function () {
     return groupBy(this, 'filtered', 'category');
   }.property(),
+
+  rootNodes: computed.filterBy('todos', 'isRoot', true),
 
   filteredResults: Ember.observer('filterBy.[]', 'filtered.[]', function(actionable, index, array) {
     let _this = this;
@@ -55,6 +58,40 @@ export default Component.extend({
     let active = this.get('active.length');
     return active === 1 ? 'item' : 'items';
   }).readOnly(),
+
+  rearrangeOrSort: function (id, parentId, position) {
+    let item = this.get('todos').findBy('id', id),
+      parent = this.get('todos').findBy('id', parentId);
+
+    if (!item) { return; }
+
+    item.setProperties({
+      parent: parent,
+      position: position + 1
+    });
+    item.save().then(function () {
+      if (parent) {
+        parent.get('children').reload();
+      }
+    });
+  },
+
+  initSortable: function () {
+    let _this = this;
+    this.$('.root.project').nestedSortable({
+      handle: 'div.item-title',
+      items: 'li',
+      toleranceElement: '> div.item-title',
+      isTree: true,
+      relocate: function (ev, sortable) {
+        let $item = sortable.item;
+        _this.rearrangeOrSort($item.data('id'), $item.parents('li:first').data('id'), $item.index())
+      },
+      expand: function (ev, sortable) {
+        sortable.expandedItem.trigger('expanded');
+      }
+    });
+  }.on('didInsertElement'),
 
   actions: {
     changeListType() {
@@ -118,6 +155,6 @@ export default Component.extend({
     },
     selectSort(selection) {
       this.set('currentSort', selection);
-    },
+    }
   }
 });

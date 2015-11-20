@@ -1,76 +1,11 @@
-<section class='todoapp'>
-  <header id='header'>
-    <input type='text' class="new-todo" placeholder='Filter By' onKeyDown={{action 'filterByUser'}}>
-    <input type='text' class="new-todo" placeholder='What needs to be done?' onKeyDown={{action 'createTodo'}}>
-  </header>
-  <section class='main'>
-    <div class="row sort-grouping">
-      <div class="col-md-6">
-        <select onchange={{action "selectSort" value="target.value"}} class="form-control">
-          {{#each sorts as |sort|}}
-            <option value={{sort}}>{{sort}}</option>
-          {{/each}}
-        </select>
-      </div>
-
-      <div class="col-md-3">
-        {{#if isGrouped}}
-          <button class="btn btn-success form-control" {{action 'changeListType' on="click"}}>
-            Remove Color Grouping
-          </button>
-        {{else}}
-          <button class="btn btn-success form-control" {{action 'changeListType' on="click"}}>
-            Group by Color
-          </button>
-        {{/if}}
-      </div>
-
-      <div class="col-md-3">
-        {{#if userGrouped}}
-          <button class="btn btn-success form-control" {{action 'changeUserGrouping' on="click"}}>
-            Remove User Grouping
-          </button>
-        {{else}}
-          <button class="btn btn-success form-control" {{action 'changeUserGrouping' on="click"}}>
-            Group by Users
-          </button>
-        {{/if}}
-      </div>
-    </div>
-
-    {{#if isGrouped}}
-      {{#each categoryGrouping as |group|}}
-        <div class="group {{group.value}}">{{group.value}} ({{group.items.length}})</div>
-        {{todos-list todos=group.items class='todo-list' currentSort=currentSort userGrouped=userGrouped}}
+<div class="col-md-8 col-sm-10 col-xs-10 col-md-offset-2 col-sm-offset-1 sol-xs-offset-1">
+  <div class="flow-container">
+    <ol class="root project">
+      {{#each rootNodes as |root|}}
+        {{todo-item todo=root}}
       {{/each}}
-    {{else}}
-      {{todos-list todos=filtered class='todo-list' currentSort=currentSort userGrouped=userGrouped}}
-    {{/if}}
-    <input type='checkbox'
-            class='toggle-all'
-            checked={{allAreDone}}
-            onchange={{action 'completeAll'}}>
-  </section>
-
-  <footer class='footer'>
-    <span class='todo-count'>
-      <strong>{{filteredResults.length}}</strong> {{inflection}} left
-    </span>
-
-    <ul class='filters'>
-      <li> {{link-to 'All' 'todo'       (query-params state='all')       activeClass='selected'}} </li>
-      {{!-- <li> {{link-to 'Active' 'todo'    (query-params state='active')    activeClass='selected'}} </li>
-      <li> {{link-to 'Completed' 'todo' (query-params state='completed') activeClass='selected'}} </li> --}}
-    </ul>
-
-    {{#if completed}}
-      <button class='clear-completed' {{action 'clearCompleted'}}>
-        Clear completed ({{completed.length}})
-      </button>
-    {{/if}}
-  </footer>
-</section>
-
-<footer class='info'>
-  <p>Double-click to edit a todo</p>
-</footer>
+      <br />
+      <br />
+    </ol>
+  </div>
+</div>
