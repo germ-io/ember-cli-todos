@@ -64,18 +64,72 @@ export default Component.extend({
       parent = this.get('todos').findBy('id', parentId);
 
     if (!item) { return; }
+    let previousPosition = item.get('position'),
+      newPosition = position + 1;
 
+    if (parent != item.get('parent')) {
+      this.rearrange(item, parent, previousPosition, newPosition);
+    } else {
+      this.sort(item, parent, previousPosition, newPosition);
+    }
+
+  },
+
+  sort: function (item, parent, previousPosition, newPosition) {
+    if (parent) {
+      if (previousPosition < newPosition) {
+        parent.get('children').forEach(function (child) {
+          if (child.get('position') > previousPosition && child.get('position') <= newPosition) {
+            child.set('position', child.get('position') - 1);
+          }
+        });
+      } else {
+        parent.get('children').forEach(function (child) {
+          if (child.get('position') >= newPosition && child.get('position') < previousPosition) {
+            child.set('position', child.get('position') + 1);
+          }
+        });
+      }
+    }
     item.setProperties({
-      parent: parent,
-      position: position + 1
+      position: newPosition
     });
     item.save().then(function () {
       if (parent) {
         parent.get('children').reload();
       }
     });
+    
   },
 
+  rearrange: function (item, newParent, previousPosition, newPosition) {
+    let oldParent = item.get('parent');
+    if (oldParent) {
+      oldParent.get('children').forEach(function (child) {
+        if (child.get('position') > previousPosition) {
+          child.set('position', child.get('position') - 1);
+        }
+      });
+    }
+    if (newParent) {
+      newParent.get('children').forEach(function (child) {
+        if (child.get('position') >= newPosition) {
+          child.set('position', child.get('position') + 1);
+        }
+      });
+    }
+
+    item.setProperties({
+      parent: newParent,
+      position: newPosition
+    });
+    item.save().then(function () {
+      if (newParent) {
+        newParent.get('children').reload();
+      }
+    });
+    
+  },
   initSortable: function () {
     let _this = this;
     this.$('.root.project').nestedSortable({
