@@ -45,6 +45,7 @@ export default Ember.Component.extend({
     this.$('ol').removeClass('closed');
     this.$().removeClass('mjs-nestedSortable-collapsed').addClass('mjs-nestedSortable-expanded');
     this.set('isCollapsed', false);
+    return false;
   },
 
   actions: {
