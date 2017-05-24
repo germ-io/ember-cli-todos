@@ -44,6 +44,7 @@ export default Ember.Component.extend({
   expanded: function () {
     this.$('ol').removeClass('closed');
     this.$().removeClass('mjs-nestedSortable-collapsed').addClass('mjs-nestedSortable-expanded');
+    console.log(this.get('todo.title'))
     this.set('isCollapsed', false);
     return false;
   },
