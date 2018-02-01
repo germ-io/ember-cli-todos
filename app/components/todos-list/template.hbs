@@ -1,3 +1,17 @@
-{{#each todos as |todo|}}
-  {{todo-item todo=todo}}
-{{/each}}
+{{#if userGrouped}}
+  <div class="stats">
+    {{#each categoryGrouping as |group|}}
+      <div class="owner">{{group.value}} ({{group.items.length}})</div>
+      {{todos-list-for-user todos=group.items currentSort=currentSort}}
+    {{/each}}
+  </div>
+{{else}}
+  <div class="stats">
+    {{#each categoryGrouping as |group|}}
+      <span>{{group.value}} ({{group.items.length}}) | </span>
+    {{/each}}
+  </div>
+
+  {{todos-list-for-user todos=todos currentSort=currentSort}}
+{{/if}}
+

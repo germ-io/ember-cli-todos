@@ -11,6 +11,13 @@
     "ember-resolver": "~0.1.18",
     "jquery": "^1.11.3",
     "loader.js": "ember-cli/loader.js#3.2.1",
-    "qunit": "~1.18.0"
+    "qunit": "~1.18.0",
+    "pikaday": "~1.4.0",
+    "moment": ">= 2.8.0",
+    "bootstrap-datepicker": "~1.5.0",
+    "moment-timezone": ">= 0.1.0",
+    "eonasdan-bootstrap-datetimepicker": "4.17.37",
+    "At.js": "~1.4.0",
+    "bootstrap": "~3.3.5"
   }
 }

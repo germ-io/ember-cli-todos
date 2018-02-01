@@ -1,9 +1,17 @@
-{{#if isEditing}}
-  {{edit-todo class='edit' value=todo.title
-                           focus-out=(action 'save' todo)
-                           insert-newline=(action 'save' todo)}}
-{{else}}
-  <input type='checkbox' checked={{todo.isCompleted}} class='toggle' onchange={{action 'toggleCompleteTodo' todo}}>
-  <label {{action 'editTodo' on='doubleClick'}}>{{todo.title}}</label>
-  <button {{action 'removeTodo' todo}} class='destroy'></button>
+<div class="item-title">
+  {{#if isCollapsed}}
+    <a class="expand-button" {{action 'expand'}}>+</a>
+  {{else}}
+    <a class="collapse-button" {{action 'collapse'}}>-</a>
+  {{/if}}
+  <div class="content" contenteditable>{{todo.title}} ({{todo.position}})</div>
+</div>
+
+{{#if todo.children.length}}
+  <ol>
+    {{#each sortedChildren as |child|}}
+      {{todo-item todo=child}}
+    {{/each}}
+  </ol>
 {{/if}}
+

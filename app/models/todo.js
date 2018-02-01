@@ -2,27 +2,15 @@ import DS from 'ember-data';
 
 var Todo = DS.Model.extend({
   title: DS.attr('string'),
-  isCompleted: DS.attr('boolean', { defaultValue: false })
-});
-
-Todo.reopenClass({
-  FIXTURES: [
-    {
-      id: '1',
-      title: 'install ember-cli',
-      isCompleted: true
-    },
-    {
-      id: '2',
-      title: 'install additional dependencies',
-      isCompleted: true
-    },
-    {
-      id: '3',
-      title: 'develop amazing things',
-      isCompleted: false
-    }
-  ]
+  owner: DS.attr('string', { defaultValue: 'Anonymous' }),
+  isCompleted: DS.attr('boolean', { defaultValue: false }),
+  isRoot: DS.attr('boolean', { defaultValue: false }),
+  category: DS.attr('string', { defaultValue: 'red' }),
+  commentsCount: DS.attr('number', { defaultValue: 0}),
+  position: DS.attr('number'),
+  parent: DS.belongsTo('todo', {inverse: 'children', async: false}),
+  children: DS.hasMany('todo', {inverse: 'parent', async: false}),
+  createdAt: DS.attr('date'),
 });
 
 export default Todo;

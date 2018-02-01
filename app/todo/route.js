@@ -4,13 +4,12 @@ import Ember from 'ember';
 export default Ember.Route.extend({
 
   queryParams: {
-    state: { refreshModel: true }
+    limit: '',
   },
 
   model(params) {
-    return this.store.findAll('todo').then((todos) => ({
+    return this.store.query('todo', { limit: params.limit }).then((todos) => ({
       all: todos,
-      filter: params.state
     }));
   }
 
